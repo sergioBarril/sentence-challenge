@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import * as sentenceService from "../services/sentences.service";
+import * as sentenceService from "../services/sentences.service.js";
 
 /**
  * Get a list of sentences
@@ -7,7 +7,7 @@ import * as sentenceService from "../services/sentences.service";
  * @param {Request} req
  * @param {Response} res
  */
-export function getSentenceList(req, res) {
-  const sentences = sentenceService.getSentenceList();
+export async function getSentenceList(req, res) {
+  const sentences = await sentenceService.getSentenceList();
   res.status(StatusCodes.OK).json(sentences);
 }
