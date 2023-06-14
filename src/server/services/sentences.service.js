@@ -1,5 +1,6 @@
 import db from "../database/db.js";
 import NotFoundError from "../errors/not-found.error.js";
+import Sentence from "../models/sentence.model.js";
 
 /**
  * Returns a list of sentences
@@ -8,7 +9,7 @@ import NotFoundError from "../errors/not-found.error.js";
  * @param {number} perPage Number of sentences to return per page
  * @param {string | null} category Category filter. If null, returns all categories
  * @param {string | null} sort "asc" or "desc"
- * @returns {Promise<FirebaseFirestore.DocumentData[]>}
+ * @returns {Promise<Sentence[]>}
  */
 export async function getSentenceList(page, perPage, category, sort) {
   let sentenceRef = db.collection("sentences");
@@ -26,7 +27,7 @@ export async function getSentenceList(page, perPage, category, sort) {
 
   const snapshot = await sentenceRef.get();
 
-  const sentences = snapshot.docs.map((doc) => doc.data());
+  const sentences = snapshot.docs.map((doc) => new Sentence(doc));
   return sentences;
 }
 
@@ -34,7 +35,7 @@ export async function getSentenceList(page, perPage, category, sort) {
  * Returns the sentence with a given ID, and throws an error if it isn't found.
  *
  * @param {string} id Sentence ID
- * @returns {Promise<FirebaseFirestore.DocumentData>}
+ * @returns {Promise<Sentence>}
  * @throws {NotFoundError} Http 404 error if the sentence doesn't exist
  */
 export async function getSentence(id) {
@@ -42,7 +43,7 @@ export async function getSentence(id) {
   const sentence = await sentenceRef.get();
   if (!sentence.exists) throw new NotFoundError(id, "Sentence");
 
-  return sentence.data();
+  return new Sentence(sentence);
 }
 
 /**
@@ -65,8 +66,8 @@ export async function createSentence(text, category) {
  * Edit an existing sentence
  *
  * @param {string} id ID of the sentence to edit
- * @param {string | undefined} text New text for the sentence. If @type {undefined}, it will keep the old one
- * @param {string | null | undefined} category New category for the sentence. If @type {undefined}, it will keep the old one
+ * @param {string | undefined} text New text for the sentence. If undefined, it will keep the old one
+ * @param {string | null | undefined} category New category for the sentence. If undefined, it will keep the old one
  */
 export async function updateSentence(id, text, category) {
   const sentenceRef = db.collection("sentences").doc(id);
