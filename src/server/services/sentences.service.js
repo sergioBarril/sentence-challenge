@@ -28,3 +28,16 @@ export async function getSentenceList(page, perPage, category, sort) {
   const sentences = snapshot.docs.map((doc) => doc.data());
   return sentences;
 }
+
+/**
+ * Returns the sentence with a given ID. Returns @type {undefined} if it doesn't exist.
+ *
+ * @param {string} id Sentence ID
+ * @returns {Promise<FirebaseFirestore.DocumentData | undefined>}
+ */
+export async function getSentence(id) {
+  const sentenceRef = db.collection("sentences").doc(id);
+  const sentence = await sentenceRef.get();
+
+  return sentence.data();
+}
