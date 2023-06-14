@@ -41,3 +41,57 @@ export async function getSentence(id) {
 
   return sentence.data();
 }
+
+/**
+ * Creates a new sentence, and returns the newly created sentence ID
+ *
+ * @param {string} text Text of the new Sentence
+ * @param {string | null} category Category of the new Sentence
+ * @returns {Promise<string>} The new Sentence ID
+ */
+export async function createSentence(text, category) {
+  const result = await db.collection("sentences").add({
+    text,
+    category,
+  });
+
+  return result.id;
+}
+
+/**
+ * Edit an existing sentence
+ *
+ * @param {string} id ID of the sentence to edit
+ * @param {string | undefined} text New text for the sentence. If @type {undefined}, it will keep the old one
+ * @param {string | null | undefined} category New category for the sentence. If @type {undefined}, it will keep the old one
+ */
+export async function updateSentence(id, text, category) {
+  const sentenceRef = db.collection("sentences").doc(id);
+
+  // Check if it exists
+  const sentence = await sentenceRef.get();
+  if (!sentence.exists) return false;
+
+  const newSentence = { newfield: true };
+  if (text !== undefined) newSentence.text = text;
+  if (category !== undefined) newSentence.category = category;
+
+  await sentenceRef.update(newSentence);
+  return;
+}
+
+/**
+ * Delete an existing sentence
+ * @param {string} id ID of the sentence to delete
+ */
+export async function deleteSentence(id) {
+  const sentenceRef = db.collection("sentences").doc(id);
+
+  // Check if it exists
+  const sentence = await sentenceRef.get();
+  if (!sentence.exists) return false;
+
+  await sentenceRef.delete();
+
+  return true;
+}

@@ -6,6 +6,8 @@ import sentenceRoutes from "./routes/sentences.routes.js";
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Coding Challenge");
 });

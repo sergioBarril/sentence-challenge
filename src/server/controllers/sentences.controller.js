@@ -36,3 +36,43 @@ export async function getSentence(req, res) {
     res.status(StatusCodes.NOT_FOUND).end();
   }
 }
+
+/**
+ * Create a new sentence
+ */
+export async function createSentence(req, res) {
+  const text = req.body.text;
+  const category = req.body.category || null;
+
+  const newSentenceId = await sentenceService.createSentence(text, category);
+  const newSentence = await sentenceService.getSentence(newSentenceId);
+
+  res.status(StatusCodes.CREATED).json(newSentence);
+}
+
+/**
+ * Update an existing sentence
+ */
+export async function updateSentence(req, res) {
+  const id = req.params.id;
+
+  const newText = req.body.text;
+  const newCategory = req.body.category;
+
+  await sentenceService.updateSentence(id, newText, newCategory);
+
+  const newSentence = await sentenceService.getSentence(id);
+  res.status(StatusCodes.OK).json(newSentence);
+}
+
+/**
+ * Delete an existing sentence
+ */
+export async function deleteSentence(req, res) {
+  const id = req.params.id;
+
+  const isDeleted = await sentenceService.deleteSentence(id);
+  if (!isDeleted) res.status(StatusCodes.NOT_FOUND).end();
+
+  res.status(StatusCodes.NO_CONTENT).end();
+}
