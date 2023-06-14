@@ -1,6 +1,9 @@
+import "dotenv/config.js";
 import db from "../database/db.js";
 import NotFoundError from "../errors/not-found.error.js";
 import Sentence from "../models/sentence.model.js";
+import HttpError from "../errors/http.error.js";
+import { StatusCodes } from "http-status-codes";
 
 /**
  * Returns a list of sentences
@@ -94,4 +97,43 @@ export async function deleteSentence(id) {
   await getSentence(id);
 
   await sentenceRef.delete();
+}
+
+/**
+ *
+ * @param {string} text Text of the sentence that needs translation
+ * @param {string} sourceLanguage Code of the language in which the sentence is written.
+ * @param {string} targetLanguage Code of the language in which the sentence should be translated
+ * @returns {Promise<string>} The translated sentence text
+ */
+export async function translateSentence(text, sourceLanguage = "DE", targetLanguage = "EN") {
+  const deeplUrl = "https://api-free.deepl.com/v2/translate";
+
+  const params = new URLSearchParams({
+    text,
+    source_lang: sourceLanguage,
+    target_lang: targetLanguage,
+  });
+
+  const apiKey = process.env.DEEPL_API_KEY;
+  if (!apiKey)
+    throw new HttpError({ message: "DeepL API Key not found", status: StatusCodes.NOT_FOUND });
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `DeepL-Auth-Key ${apiKey}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params,
+  };
+
+  const response = await fetch(deeplUrl, requestOptions);
+  const body = await response.json();
+
+  if (!response.ok) {
+    throw new HttpError({ message: body.message, status: response.status });
+  }
+
+  return body?.translations[0]?.text;
 }
