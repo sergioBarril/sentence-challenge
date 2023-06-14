@@ -14,12 +14,19 @@
 
     <div id="sentence">
         <p id="sentence-text">Loading...</p>
+        <p id="translate" style="display:none">
+            <span id="translated-label">Translated text:</span>
+            <span id="sentence-translated-text"></span>
+        </p>
         <p>
             <span id="category-label">Category:</span>
             <span id="sentence-category"></span>
         </p>
     </div>
-    <div id="detail-error" style="display:hidden"></div>
+
+    <button id="btn-translate">Translate to English</button>
+
+    <div id="detail-error" style="display:none"></div>
 </body>
 
 <script src="./js/detail.js"></script>
