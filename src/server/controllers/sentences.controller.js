@@ -29,12 +29,7 @@ export async function getSentenceList(req, res) {
  */
 export async function getSentence(req, res) {
   const sentence = await sentenceService.getSentence(req.params.id);
-
-  if (sentence) {
-    res.status(StatusCodes.OK).json(sentence);
-  } else {
-    res.status(StatusCodes.NOT_FOUND).end();
-  }
+  res.status(StatusCodes.OK).json(sentence);
 }
 
 /**
@@ -71,8 +66,7 @@ export async function updateSentence(req, res) {
 export async function deleteSentence(req, res) {
   const id = req.params.id;
 
-  const isDeleted = await sentenceService.deleteSentence(id);
-  if (!isDeleted) res.status(StatusCodes.NOT_FOUND).end();
+  await sentenceService.deleteSentence(id);
 
   res.status(StatusCodes.NO_CONTENT).end();
 }

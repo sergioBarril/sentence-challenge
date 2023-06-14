@@ -1,4 +1,5 @@
 import db from "../database/db.js";
+import NotFoundError from "../errors/not-found.error.js";
 
 /**
  * Returns a list of sentences
@@ -30,14 +31,16 @@ export async function getSentenceList(page, perPage, category, sort) {
 }
 
 /**
- * Returns the sentence with a given ID. Returns @type {undefined} if it doesn't exist.
+ * Returns the sentence with a given ID, and throws an error if it isn't found.
  *
  * @param {string} id Sentence ID
- * @returns {Promise<FirebaseFirestore.DocumentData | undefined>}
+ * @returns {Promise<FirebaseFirestore.DocumentData>}
+ * @throws {NotFoundError} Http 404 error if the sentence doesn't exist
  */
 export async function getSentence(id) {
   const sentenceRef = db.collection("sentences").doc(id);
   const sentence = await sentenceRef.get();
+  if (!sentence.exists) throw new NotFoundError(id, "Sentence");
 
   return sentence.data();
 }
@@ -69,8 +72,7 @@ export async function updateSentence(id, text, category) {
   const sentenceRef = db.collection("sentences").doc(id);
 
   // Check if it exists
-  const sentence = await sentenceRef.get();
-  if (!sentence.exists) return false;
+  await getSentence(id);
 
   const newSentence = { newfield: true };
   if (text !== undefined) newSentence.text = text;
@@ -88,10 +90,7 @@ export async function deleteSentence(id) {
   const sentenceRef = db.collection("sentences").doc(id);
 
   // Check if it exists
-  const sentence = await sentenceRef.get();
-  if (!sentence.exists) return false;
+  await getSentence(id);
 
   await sentenceRef.delete();
-
-  return true;
 }
