@@ -70,3 +70,14 @@ export async function deleteSentence(req, res) {
 
   res.status(StatusCodes.NO_CONTENT).end();
 }
+
+/**
+ * Translate an existing sentence
+ */
+export async function translateSentence(req, res) {
+  const id = req.params.id;
+  const sentence = await sentenceService.getSentence(id);
+
+  const translatedText = await sentenceService.translateSentence(sentence.text, "DE", "EN");
+  res.status(StatusCodes.OK).json({ text: translatedText });
+}
