@@ -6,9 +6,6 @@ const VALID_SORT_VALUES = ["asc", "desc"];
 
 /**
  * Get a list of sentences
- *
- * @param {Request} req
- * @param {Response} res
  */
 export async function getSentenceList(req, res) {
   let page = parseInt(req.query.page);
@@ -25,4 +22,17 @@ export async function getSentenceList(req, res) {
 
   const sentences = await sentenceService.getSentenceList(page, perPage, category, sort);
   return res.status(StatusCodes.OK).json(sentences);
+}
+
+/**
+ * Get a sentence by id
+ */
+export async function getSentence(req, res) {
+  const sentence = await sentenceService.getSentence(req.params.id);
+
+  if (sentence) {
+    res.status(StatusCodes.OK).json(sentence);
+  } else {
+    res.status(StatusCodes.NOT_FOUND).end();
+  }
 }
