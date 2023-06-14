@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Challenge</title>
+</head>
+<body>
+    
+    <header>
+        <h1>Sentence Challenge: List</h1>
+    </header>
+
+    <div>
+        <label for="page-input">Page:</label>
+        <input id="page-input" name="page" type="number" min="1" value="1">
+    
+        <label for="per-page-input">Sentences per page:</label>
+        <input id="per-page-input" name="per-page" type="number" min="1" value="20">
+    
+        <label for="category-input">Category:</label>
+        <input id="category-input" type="text">
+
+        <label for="sort-buttons">Sort:</label>
+        <span id="sort-buttons">
+            <label for="asc-sort">Ascending</label>
+            <input type="radio" name="sort-input" id="asc-sort" value="asc" checked>
+            <label for="desc-sort">Descending</label>
+            <input type="radio" name="sort-input" id="desc-sort" value="desc">
+        </span>
+
+        <input type="submit" id="search" value="Search" onclick="search()">
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Text</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+</body>
+
+<script src="./js/list.js"></script>
+</html>

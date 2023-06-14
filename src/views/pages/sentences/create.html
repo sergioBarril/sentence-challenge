@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Challenge</title>
+</head>
+
+<body>
+    <header>
+        <h1>Sentence Challenge: Create</h1>
+    </header>
+
+    <form id="create-form" action="javascript:void(0);" method="post" onsubmit="sendForm()">
+        <label for="sentence-text">Text:</label>
+        <input type="text" id="sentence-text" name="text" placeholder="Text...">
+        <label for="sentence-category">Category:</label>
+        <input type="text" id="sentence-category" name="category" placeholder="Category...">
+
+        <input type="submit">
+    </form>
+    <div id="detail-error" style="display:hidden"></div>
+</body>
+
+<script src="./js/create.js"></script>
+
+</html>
