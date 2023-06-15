@@ -26,6 +26,9 @@ app.use("/sentences", sentenceViewRoutes);
 
 app.use("/", errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Node server on http://localhost:${PORT}/`);
-});
+if (process.env["NODE_ENV"] !== "test")
+  app.listen(PORT, () => {
+    console.log(`Node server on http://localhost:${PORT}/`);
+  });
+
+export default app;

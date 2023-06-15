@@ -18,6 +18,7 @@ export async function getSentenceList(page, perPage, category, sort) {
   let sentenceRef = db.collection("sentences");
 
   if (category) {
+    if (category === "none" || category === "null") category = null;
     sentenceRef = sentenceRef.where("category", "==", category);
   } else if (sort) {
     sentenceRef = sentenceRef.orderBy("category", sort);
@@ -78,8 +79,8 @@ export async function updateSentence(id, text, category) {
   // Check if it exists
   await getSentence(id);
 
-  const newSentence = { newfield: true };
-  if (text !== undefined) newSentence.text = text;
+  const newSentence = {};
+  if (text != null && text.length > 0) newSentence.text = text;
   if (category !== undefined) newSentence.category = category;
 
   await sentenceRef.update(newSentence);
@@ -132,7 +133,9 @@ export async function translateSentence(text, sourceLanguage = "DE", targetLangu
   const body = await response.json();
 
   if (!response.ok) {
-    throw new HttpError({ message: body.message, status: response.status });
+    if (response.status === StatusCodes.FORBIDDEN)
+      throw new HttpError({ message: "DeepL API Key is invalid", status: StatusCodes.FORBIDDEN });
+    else throw new HttpError({ message: body.message, status: response.status });
   }
 
   return body?.translations[0]?.text;
