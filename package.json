@@ -11,7 +11,7 @@
     "db:insert:mid": "node src/scripts/sentenceBulk.js \"1000-sentences.jsonl.txt\"",
     "db:insert:full": "node src/scripts/sentenceBulk.js \"sentences.jsonl.txt\"",
     "stats:top-100-words": "node src/scripts/top-words.js \"sentences.jsonl.txt\" 100",
-    "test": "jest --detectOpenHandles --runInBand"
+    "test": "jest --detectOpenHandles --runInBand --coverage"
   },
   "author": "Sergio Barril",
   "license": "ISC",
