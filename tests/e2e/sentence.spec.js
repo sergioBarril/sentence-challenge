@@ -223,6 +223,21 @@ describe("Test Sentence Routes End to End", () => {
       expect(res.status).toBe(StatusCodes.CREATED);
       expect(res.body).toEqual({ id: expect.any(String), text: newSentence.text, category: null });
     });
+    it("Creates a new Sentence with category null if its value is 'null' or 'none'", async () => {
+      const newSentence = {
+        text: `Ich habe mein Deutsch und die Categorie vergessen`,
+        category: "null",
+      };
+
+      const res = await request(app).post(API_ENDPOINT).send(newSentence);
+
+      expect(res.status).toBe(StatusCodes.CREATED);
+      expect(res.body).toEqual({
+        id: expect.any(String),
+        text: newSentence.text,
+        category: null,
+      });
+    });
 
     it("Creates a new Sentence with category null if it is an empty string", async () => {
       const newSentence = {

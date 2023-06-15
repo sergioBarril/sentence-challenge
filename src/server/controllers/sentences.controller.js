@@ -48,8 +48,9 @@ export async function createSentence(req, res) {
     });
   }
 
-  let category = req.body.category;
-  if (!category || category.trim() === "") category = null;
+  let category = req.body.category?.trim();
+  const categoryNullValues = ["", "none", "null"];
+  if (!category || categoryNullValues.includes(category)) category = null;
 
   const newSentenceId = await sentenceService.createSentence(text, category);
   const newSentence = await sentenceService.getSentence(newSentenceId);
