@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
-
 import request from "supertest";
 import mockConfig from "../__mocks__/database/config";
 jest.mock("../../src/server/database/config.js", () => mockConfig);
+import { StatusCodes } from "http-status-codes";
 
 import db from "../../src/server/database/db.js";
 import app from "../../src/app.js";
-import { StatusCodes } from "http-status-codes";
 
 afterEach(async () => {
   const sentenceRef = db.collection("sentences");
@@ -19,9 +18,11 @@ afterEach(async () => {
 describe("Test Sentence Routes End to End", () => {
   describe("GET all sentences", () => {
     it("Returns a 200 status code", async () => {
-      const res = await request(app).get("/api/sentences");
+      const res = await request(app).get("/api/sentences?page=1");
+
       expect(res.status).toBe(StatusCodes.OK);
       expect(res.body).toEqual(expect.any(Array));
+      expect(res.body).toEqual();
     });
   });
 });
