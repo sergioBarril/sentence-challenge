@@ -5,24 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentence Challenge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/create.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Sentence Challenge: Update</h1>
+        <h1><a href="/sentences">Sentence Challenge: Update</a></h1>
     </header>
 
     <form id="update-form" action="javascript:void(0);" method="post" onsubmit="sendForm()">
-        <label for="sentence-text">Text:</label>
-        <input type="text" id="sentence-text" name="text" value="Loading...">
-        <label for="sentence-category">Category:</label>
-        <input type="text" id="sentence-category" name="category" value="Loading...">
-
-        <input type="submit">
+        <div class="form-group">
+            <label for="sentence-text">Text:</label>
+            <input type="text" class="form-control" id="sentence-text" name="text" placeholder="Text...">
+        </div>
+        <div class="form-group">
+            <label for="sentence-category">Category:</label>
+            <input type="text" id="sentence-category" class="form-control" name="category" placeholder="Category...">
+        </div>
+        <input type="submit" value="Submit">
     </form>
     <div id="detail-error" style="display:hidden"></div>
 </body>
 
 <script src="../js/update.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
 
 </html>

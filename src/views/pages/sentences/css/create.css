@@ -1,8 +1,12 @@
-#sentence {
+form {
     width: 40%;
     margin: 30px auto;
 }
 
-.card label {
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
     font-weight: bold;
 }
