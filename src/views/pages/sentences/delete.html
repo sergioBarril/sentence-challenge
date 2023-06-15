@@ -5,26 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentence Challenge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/detail.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <h1>Sentence Challenge: Delete</h1>
+        <h1><a href="/sentences">Sentence Challenge: Delete</a></h1>
     </header>
 
-    <div id="sentence">
-        <p id="sentence-text">Loading...</p>
-        <p>
-            <span id="category-label">Category:</span>
-            <span id="sentence-category"></span>
-        </p>
+    <div id="sentence" class="card">
+        <div class="card-body">
+            <h5 class="card-title">Sentence</h5>
+            <h6 class="card-subtitle mb-2" id="sentence-category">Responsibility</h6>
+            <p id="text" class="card-text">
+                <label id="text-label">Text:</label>
+                <span id="sentence-text">Loading...</span>
+            </p>
+            <p id="translate" class="sentence-text" style="display:none">
+                <label id="translated-label">Translated text:</label>
+                <span id="sentence-translated-text"></span>
+            </p>
+                <button type="button" onclick="sendDelete()">Delete</button>
+                <a href="#" id="detail-link"><button type="button">Go back</button></a>
+
+
+        </div>
     </div>
-    <div id="detail-error" style="display:hidden"></div>
-
-    <button onclick="sendDelete()">Delete</button>
 </body>
-
-<script src="../js/detail.js"></script>
 <script src="../js/delete.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
 </html>

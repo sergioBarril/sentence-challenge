@@ -3,3 +3,8 @@ header {
     margin-top: 20px;
     margin-bottom: 5px;
 }
+
+header a {
+    text-decoration: inherit;
+    color:inherit;
+}

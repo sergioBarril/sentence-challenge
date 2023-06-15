@@ -13,8 +13,10 @@ async function detail() {
   }
 
   const sentence = await response.json();
-  document.getElementById("sentence-text").innerHTML = sentence.text;
-  document.getElementById("sentence-category").innerHTML = sentence.category;
+  document.getElementById("sentence-text").innerText = sentence.text;
+  document.getElementById("sentence-category").innerText = sentence.category || "none";
+  document.getElementById("edit-link").setAttribute("href", `/sentences/${id}/edit`);
+  document.getElementById("delete-link").setAttribute("href", `/sentences/${id}/delete`);
 }
 
 async function translate() {
@@ -25,7 +27,7 @@ async function translate() {
   const result = await response.json();
 
   document.getElementById("sentence-translated-text").innerHTML = result.text;
-  document.getElementById("translate").style.display = "inline-block";
+  document.getElementById("translate").style.display = "block";
 
   document.getElementById("btn-translate").disabled = "true";
 }
