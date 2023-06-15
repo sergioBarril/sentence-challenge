@@ -40,8 +40,16 @@
         </div>
     </div>
 
-
-    <div id="detail-error" style="display:none"></div>
+    <div id="error-card" class="card" style="display: none;">
+        <div class="card-body">
+            <h5 class="card-title">Error</h5>
+            <h6 class="card-subtitle mb-2">
+                <label id="status-label">Status:</label>
+                <span id="status-code"></span>
+            </h6>
+            <p id="error-message" class="card-text"></p>
+        </div>
+    </div>
 </body>
 
 <script src="./js/detail.js"></script>
