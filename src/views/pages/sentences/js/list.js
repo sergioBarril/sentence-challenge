@@ -18,7 +18,6 @@ async function search() {
   const response = await fetch(`${BASE_URL}?${queryParams.toString()}`);
 
   if (response.ok) {
-    console.log(response);
     const json = await response.json();
 
     const rows = json.map(
