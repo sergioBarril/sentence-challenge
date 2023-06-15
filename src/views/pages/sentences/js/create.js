@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-const BASE_URL = "http://localhost:3000/api/sentences";
+const BASE_URL = "/api/sentences";
 
 async function sendForm() {
   const form = document.getElementById("create-form");
@@ -18,6 +18,6 @@ async function sendForm() {
 
   const id = content.id;
 
-  const detailUrl = `http://localhost:3000/sentences/${id}`;
+  const detailUrl = `/sentences/${id}`;
   window.location.replace(detailUrl);
 }

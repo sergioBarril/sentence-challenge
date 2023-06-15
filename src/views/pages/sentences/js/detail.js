@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-const API_URL = "http://localhost:3000/api/sentences";
+const API_URL = "/api/sentences";
 
 async function detail() {
   const url = document.location.pathname;
