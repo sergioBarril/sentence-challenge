@@ -24,7 +24,9 @@ async function search() {
     const rows = json.map(
       (sentence, i) =>
         `<tr id="row-${i}">
-            <td class="sentence-id">${sentence.id}</td>
+            <td class="sentence-id"><a href="/sentences/${
+              sentence.id
+            }"><i class="bi bi-search"></i></a></td>
             <td class="sentence-text">${sentence.text}</td>
             <td class="sentence-category">${sentence.category || "-"}</td>
             </tr>`
