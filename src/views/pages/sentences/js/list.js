@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-const BASE_URL = "http://localhost:3000/api/sentences";
+const BASE_URL = "/api/sentences";
 
 async function search() {
   const page = document.getElementById("page-input").value;

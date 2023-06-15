@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-const API_URL = "http://localhost:3000/api/sentences";
+const API_URL = "/api/sentences";
 let id;
 
 async function detail() {
@@ -34,7 +34,7 @@ async function sendForm() {
 
   const content = await response.json();
 
-  const detailUrl = `http://localhost:3000/sentences/${id}`;
+  const detailUrl = `/sentences/${id}`;
   window.location.replace(detailUrl);
 }
 
