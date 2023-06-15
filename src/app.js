@@ -9,7 +9,7 @@ import errorMiddleware from "./server/middleware/error.middleware.js";
 
 import serveStatic from "serve-static";
 
-const app = express();
+export const app = express();
 const PORT = 3000;
 
 app.use(express.json());
